@@ -11,7 +11,8 @@ ENV PATH /usr/local/texlive/${TL_VERSION}/bin/x86_64-linux:$PATH
 WORKDIR /tmp/install-tl-unx
 
 RUN set -x && \
-    apk update && apk add --no-cache perl fontconfig-dev freetype-dev make && \
+    apk update && \
+        apk add --no-cache perl fontconfig-dev freetype-dev make git && \
     apk add --no-cache --virtual .build-tool gnupg wget tar xz && \
     # Download installer
     wget -qO - "${TL_REPO}/install-tl-unx.tar.gz" | \
@@ -22,8 +23,7 @@ option_doc 0\n\
 option_src 0" > texlive.profile && \
     ./install-tl -profile ./texlive.profile -repository "${TL_REPO}/tlnet-final/" && \
     tlmgr install \
-        collection-latexrecommended collection-latexextra \
-        collection-fontsrecommended \
+        collection-latexextra collection-fontsrecommended \
         latexmk latexdiff && \
     # Download the arXiv bibstyles which support eprint field:
     #   see https://arxiv.org/help/hypertex/bibstyles
