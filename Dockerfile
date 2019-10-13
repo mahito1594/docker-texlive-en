@@ -23,7 +23,8 @@ option_doc 0\n\
 option_src 0" > texlive.profile && \
     ./install-tl -profile ./texlive.profile -repository "${TL_REPO}/tlnet-final/" && \
     tlmgr install \
-        collection-latexextra collection-fontsrecommended \
+        collection-latexextra \
+        collection-fontsrecommended collection-fontsextra \
         latexmk latexdiff && \
     # Download the arXiv bibstyles which support eprint field:
     #   see https://arxiv.org/help/hypertex/bibstyles
